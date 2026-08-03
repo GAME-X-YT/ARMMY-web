@@ -1,5 +1,5 @@
 import express, { type Request, type Response } from 'express';
-import SupportTicket from '../models/SupportTicket.ts';
+import SupportTicket from '../models/SupportTicket.js';
 import { GoogleGenAI } from '@google/genai';
 
 const router = express.Router();
