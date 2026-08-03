@@ -6,7 +6,7 @@ import nodemailer from 'nodemailer';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import supportRouter from './routes/supportRoutes.js';
+import supportRouter from './routes/supportRoutes.ts';
 dotenv.config();
 
 const app = express();
