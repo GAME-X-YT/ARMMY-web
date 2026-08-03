@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 import supportRouter from './routes/supportRoutes.ts';
 dotenv.config();
 
@@ -33,6 +34,9 @@ const SupportSchema = new Schema({
         }
     ]
 });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const SupportTicket = mongoose.models.SupportTicket || mongoose.model<ISupportMessage>('SupportTicket', SupportSchema);
 
