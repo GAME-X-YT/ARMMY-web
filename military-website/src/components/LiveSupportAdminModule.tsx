@@ -91,11 +91,14 @@ export default function LiveSupportAdminModule() {
     const [tickets, setTickets] = useState<any[]>([]);
     const [replyInputs, setReplyInputs] = useState<{ [key: string]: string }>({});
     const [statusMessage, setStatusMessage] = useState('');
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     // Fetch incoming user support tickets
     const fetchTickets = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/support/admin/tickets');
+            const res = await fetch(`${API_URL}/api/support/admin/tickets`);
             const data = await res.json();
             if (data.success) {
                 setTickets(data.tickets);
@@ -124,7 +127,7 @@ export default function LiveSupportAdminModule() {
         if (!replyText || !replyText.trim()) return;
 
         try {
-            const res = await fetch('http://localhost:5000/api/support/admin/reply', {
+            const res = await fetch(`${API_URL}/api/support/admin/reply`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ticketId, replyText })

@@ -26,6 +26,10 @@ export default function EditCertificateModal({ soldier, onClose, onUpdate }: Edi
     const [issueDate, setIssueDate] = useState(soldier.certificate?.issueDate || new Date().toLocaleDateString());
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+        const API_URL = import.meta.env.PROD 
+    ? 'https://arrmy-backend.onrender.com' 
+    : 'http://localhost:5000';
+
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,7 +37,7 @@ export default function EditCertificateModal({ soldier, onClose, onUpdate }: Edi
         setError('');
 
         try {
-            const response = await fetch(`http://localhost:5000/api/soldiers/${soldier._id}/certificate`, {
+            const response = await fetch(`${API_URL}/api/soldiers/${soldier._id}/certificate`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

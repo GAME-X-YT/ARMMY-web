@@ -1317,6 +1317,9 @@ export default function Verify() {
     const [error, setError] = useState<string | null>(null);
     const [soldier, setSoldier] = useState<SoldierData | null>(null);
     const [showCertificate, setShowCertificate] = useState(false);
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     const handleVerify = async (e: FormEvent) => {
         e.preventDefault();
@@ -1324,7 +1327,7 @@ export default function Verify() {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:5000/api/verify', {
+            const response = await fetch(`${API_URL}/api/verify`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1357,7 +1360,7 @@ export default function Verify() {
     const getImageUrl = (imagePath?: string) => {
         if (!imagePath) return '';
         if (imagePath.startsWith('http')) return imagePath;
-        return `http://localhost:5000${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+        return `${API_URL}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
     };
 
     return (

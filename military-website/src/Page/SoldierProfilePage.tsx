@@ -6,6 +6,7 @@ export default function SecureSoldierLogin() {
     const [soldierData, setSoldierData] = useState<any>(null);
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(false);
+    const API_URL = 'https://arrmy-backend.onrender.com';
 
     const handleSecureLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -14,7 +15,7 @@ export default function SecureSoldierLogin() {
         setSoldierData(null);
 
         try {
-            const res = await fetch('http://localhost:5000/api/soldiers/verify-secure', {
+            const res = await fetch(`${API_URL}/api/soldiers/verify-secure`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -95,7 +96,7 @@ export default function SecureSoldierLogin() {
                         <div className="flex items-center gap-4 border-b border-neutral-800 pb-4">
                             {soldierData.image && (
                                 <img 
-                                    src={`http://localhost:5000${soldierData.image}`} 
+                                    src={`${API_URL}${soldierData.image}`} 
                                     alt={soldierData.name} 
                                     className="w-20 h-20 object-cover rounded border border-neutral-700" 
                                 />

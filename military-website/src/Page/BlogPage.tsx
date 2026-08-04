@@ -17,6 +17,9 @@ export default function BlogPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     // Fetch posts on load
     useEffect(() => {
@@ -25,7 +28,7 @@ export default function BlogPage() {
 
     const fetchPosts = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/blog/posts');
+            const res = await fetch(`${API_URL}/api/blog/posts`);
             const data = await res.json();
             if (data.success) {
                 setPosts(data.posts);

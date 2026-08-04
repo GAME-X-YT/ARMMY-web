@@ -232,6 +232,8 @@ export default function CertificateModal({ soldier, onClose }: CertificateModalP
     const signedBy = soldier.certificate?.signedBy || 'Major Gen. Jeff M. Farris';
     const issueDate = soldier.certificate?.issueDate || new Date().toLocaleDateString();
 
+    
+
     const handlePrint = () => {
         window.print();
     };

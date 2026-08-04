@@ -6,6 +6,9 @@ export default function BlogBroadcastModule() {
     const [content, setContent] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     // Handle image file upload to server
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +19,7 @@ export default function BlogBroadcastModule() {
         uploadData.append('soldierImage', file); // Matches your multer configuration in server.ts
 
         try {
-            const res = await fetch('http://localhost:5000/api/soldiers/upload', {
+            const res = await fetch(`${API_URL}/api/soldiers/upload`, {
                 method: 'POST',
                 body: uploadData
             });
@@ -36,7 +39,7 @@ export default function BlogBroadcastModule() {
     const handleSubmitPost = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:5000/api/blog/posts', {
+            const res = await fetch(`${API_URL}/api/blog/posts`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
