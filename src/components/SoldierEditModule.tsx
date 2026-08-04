@@ -221,6 +221,9 @@ export default function SoldierEditModule({ onEditCertificate }: SoldierEditModu
     const [selectedId, setSelectedId] = useState('');
     const [formData, setFormData] = useState<any>({});
     const [statusMessage, setStatusMessage] = useState('');
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
     
     // States for adding custom dynamic fields
     const [newFieldKey, setNewFieldKey] = useState('');
@@ -228,7 +231,7 @@ export default function SoldierEditModule({ onEditCertificate }: SoldierEditModu
 
     // Fetch all soldiers to populate the "Army ID Switcher" dropdown
     useEffect(() => {
-        fetch('http://localhost:5000/api/soldiers')
+        fetch(`${API_URL}/api/soldiers`)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -263,7 +266,7 @@ export default function SoldierEditModule({ onEditCertificate }: SoldierEditModu
         uploadData.append('soldierImage', file);
 
         try {
-            const res = await fetch('http://localhost:5000/api/soldiers/upload', {
+            const res = await fetch(`${API_URL}/api/soldiers/upload`, {
                 method: 'POST',
                 body: uploadData
             });
@@ -295,7 +298,7 @@ export default function SoldierEditModule({ onEditCertificate }: SoldierEditModu
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:5000/api/soldiers/${selectedId}`, {
+            const res = await fetch(`${API_URL}/api/soldiers/${selectedId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

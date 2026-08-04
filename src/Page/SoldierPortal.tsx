@@ -7,10 +7,13 @@ export default function SoldierPortal() {
     const [soldierData, setSoldierData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     useEffect(() => {
         // Fetch specific soldier details from your backend using the soldierId parameter
-        fetch(`http://localhost:5000/api/soldiers/${soldierId}`)
+        fetch(`${API_URL}/api/soldiers/${soldierId}`)
             .then(res => {
                 if (!res.ok) throw new Error('Unauthorized or invalid soldier record.');
                 return res.json();

@@ -10,6 +10,10 @@ export default function AdminCodeGeneratorModule() {
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
 
+    const API_URL = import.meta.env.PROD 
+    ? 'https://arrmy-backend.onrender.com' 
+    : 'http://localhost:5000';
+
     const handleGenerateCode = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -18,11 +22,12 @@ export default function AdminCodeGeneratorModule() {
         setGeneratedCode(null);
 
         try {
-            const response = await fetch('http://localhost:5000/api/soldiers/generate-code', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ soldierId: soldierId.trim() }),
-            });
+        // Change single quotes '' to backticks ``
+        const response = await fetch(`${API_URL}/api/soldiers/generate-code`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ soldierId: soldierId.trim() }),
+        });
 
             const data = await response.json();
 

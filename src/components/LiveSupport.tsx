@@ -89,7 +89,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function LiveSupport() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    
+   const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
+  
     // Chat state
     const [messages, setMessages] = useState([
         { sender: 'ai', text: 'Secure U.S. Army Support line active. How can we assist your verification inquiry?' }
@@ -142,7 +145,7 @@ export default function LiveSupport() {
             const currentUser = localStorage.getItem('militaryUser');
             const parsedUser = currentUser ? JSON.parse(currentUser) : null;
 
-            const response = await fetch('http://localhost:5000/api/support/messages', {
+            const response = await fetch(`${API_URL}/api/support/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

@@ -29,6 +29,9 @@ export default function ProfileModal({ isOpen, onClose, onLoginSuccess }: Profil
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const API_URL = import.meta.env.PROD 
+  ? 'https://arrmy-backend.onrender.com' 
+  : 'http://localhost:5000';
 
     if (!isOpen) return null;
 
@@ -39,7 +42,7 @@ export default function ProfileModal({ isOpen, onClose, onLoginSuccess }: Profil
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/login', {
+            const res = await fetch(`${API_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ soldierId, password }),
@@ -66,7 +69,7 @@ export default function ProfileModal({ isOpen, onClose, onLoginSuccess }: Profil
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/register', {
+            const res = await fetch(`${API_URL}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ soldierId, password, name: regName, email: regEmail }),
@@ -95,7 +98,7 @@ export default function ProfileModal({ isOpen, onClose, onLoginSuccess }: Profil
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/verify-recovery', {
+            const res = await fetch(`${API_URL}/api/auth/verify-recovery`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ soldierId: recoveryId, email: recoveryEmail }),
@@ -132,7 +135,7 @@ export default function ProfileModal({ isOpen, onClose, onLoginSuccess }: Profil
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/auth/update-password', {
+            const res = await fetch(`${API_URL}/api/auth/update-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ soldierId: recoveryId, newPassword }),
