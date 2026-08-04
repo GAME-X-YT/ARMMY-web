@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 import supportRouter from './routes/supportRoutes.ts';
 dotenv.config();
 
+
 const app = express();
 app.use('/api/support', supportRouter);
 
@@ -394,7 +395,9 @@ app.post('/api/soldiers/upload', upload.single('soldierImage'), async (req: any,
         }
 
         // Creates a web URL pointing to the uploaded image on your server
-        const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+        // Dynamically detects if it's on Render or localhost
+         const baseUrl = `${req.protocol}://${req.get('host')}`;
+        const imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
         res.status(200).json({ 
             success: true, 
